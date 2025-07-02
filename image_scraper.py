@@ -2,8 +2,11 @@ import os
 import sys
 import csv
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 
 INPUT_FILE = "sku_links.txt"
@@ -16,7 +19,8 @@ def init_driver():
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--ignore-certificate-errors")
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    service = Service(executable_path="chromedriver.exe")
+    driver = webdriver.Chrome(service=service)
     return driver
 
 
