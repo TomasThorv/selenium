@@ -1,17 +1,21 @@
+#!/usr/bin/env python3
 """
-Search each SKU in skus.txt by restricting to a predefined list of domains:
-for each SKU, perform a DuckDuckGo "site:domain SKU" search on each allowed domain,
-collect all result links from those domains, and write them to sku_links_limited.txt.
+sku_search_limited.py – Search each SKU in skus.txt by restricting to a predefined list of domains
+────────────────────────────────────────────────────────────────────────────────────────────────
+Reads SKUs from `skus.txt` and for each SKU performs a DuckDuckGo "site:domain SKU" search
+on each allowed domain, collecting at most one link per site that exactly matches the SKU and
+belongs to the approved domains list.
 
-• Gives each SKU up to TIMEOUT seconds per domain search.
-• Prints progress and writes "NOT_FOUND" if no links found for that SKU across all domains.
+• Respects STRICT_SKU_MATCH: enforces exact SKU boundaries in URLs.
+• Enforces strict domain matching: only links from ALLOWED_DOMAINS are considered.
+• Writes results to `sku_links_limited.txt`.
 
 Run:
     python sku_search_limited.py
 """
 
 from __future__ import annotations
-import pathlib, sys, time
+import pathlib, sys, time, re
 from urllib.parse import urlparse
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -26,7 +30,7 @@ TIMEOUT = 10  # seconds per search
 SEARCH_URL = "https://duckduckgo.com/?q={query}&ia=web"
 TITLE_SEL = "a[data-testid='result-title-a'], a.result__a"
 HEADLESS = True  # set False to see browser
-STRICT_SKU_MATCH = True  # Only return results that contain the exact SKU
+STRICT_SKU_MATCH = True  # enforce exact SKU boundaries in URL
 ALLOWED_DOMAINS = [
     "solesense.com",
     "nike.com",
@@ -42,11 +46,23 @@ ALLOWED_DOMAINS = [
     "sa.puma.com",
     "ae.puma.com",
     "br.puma.com",
-    "www.soccerandrugby.com",
-    "www.adsport.store",
+    "soccerandrugby.com",
+    "adsport.store",
 ]
 OUTPUT_FILE = "sku_links_limited.txt"
 # ──────────────────────────────────────────────────────────────────────────────
+
+
+def normalize(domain: str) -> str:
+    """Ensure domain is lowercase without 'www.' prefix"""
+    d = domain.lower()
+    if d.startswith("www."):
+        d = d[4:]
+    return d
+
+
+# Pre-calculate normalized domain set
+ALLOWED_NORMALIZED = {normalize(d) for d in ALLOWED_DOMAINS}
 
 # Set up headless Chrome
 opts = webdriver.ChromeOptions()
@@ -61,19 +77,16 @@ except Exception as e:
 wait = WebDriverWait(driver, TIMEOUT)
 
 
-def normalize(domain: str) -> str:
-    """Ensure domain is in lowercase without 'www.' prefix"""
-    d = domain.lower()
-    if d.startswith("www."):
-        d = d[4:]
-    return d
-
-
 def find_links_for(sku: str) -> list[str]:
-    """Search SKU on each allowed domain and collect matching links."""
-    collected: dict[str, str] = {}  # domain -> best_link mapping
+    """Search SKU on each allowed domain and return at most one strict match per domain."""
+    collected: dict[str, str] = {}
+    sku_lower = sku.lower()
+    sku_pattern = (
+        re.compile(rf"\b{re.escape(sku_lower)}\b") if STRICT_SKU_MATCH else None
+    )
 
     for domain in ALLOWED_DOMAINS:
+        norm_domain = normalize(domain)
         query = f"site:{domain} {sku}"
         driver.get(SEARCH_URL.format(query=query))
         try:
@@ -81,72 +94,31 @@ def find_links_for(sku: str) -> list[str]:
         except TimeoutException:
             continue
 
-        # Find the best matching link for this domain
-        best_link = None
-        best_score = 0
-
         for a in driver.find_elements(By.CSS_SELECTOR, TITLE_SEL):
             href = a.get_attribute("href") or ""
-            title = a.text.strip()
-
-            # Check domain match
-            netloc = urlparse(href).netloc.lower()
-            if normalize(netloc) != domain:
+            # strict domain match
+            netloc = urlparse(href).netloc
+            norm_netloc = normalize(netloc)
+            if norm_netloc != norm_domain:
                 continue
-
-            # Check if SKU appears in URL or title
-            href_lower = href.lower()
-            title_lower = title.lower()
-            sku_lower = sku.lower()
-
-            # Calculate relevance score
-            score = 0
-
-            # Exact SKU match in URL gets highest priority
-            if sku_lower in href_lower:
-                score += 10
-                # Bonus for exact match boundaries (not part of another word)
-                if (
-                    f"/{sku_lower}" in href_lower
-                    or f"-{sku_lower}" in href_lower
-                    or f"={sku_lower}" in href_lower
-                ):
-                    score += 5
-                # Bonus for SKU at end of URL
-                if href_lower.endswith(sku_lower) or href_lower.endswith(
-                    f"{sku_lower}/"
-                ):
-                    score += 3
-
-            # SKU match in title
-            if sku_lower in title_lower:
-                score += 5
-                # Bonus for exact word match in title
-                if sku.lower() in title_lower.split():
-                    score += 3
-
-            # Only consider links that actually contain the SKU
-            if score > 0 and score > best_score:
-                best_link = href
-                best_score = score
-
-        # Add the best link for this domain if found
-        if best_link:
-            collected[domain] = best_link
+            # strict SKU match in URL
+            if sku_pattern and not sku_pattern.search(href.lower()):
+                continue
+            # accept first valid link per domain
+            collected[norm_domain] = href
+            break
 
         time.sleep(0.2)
 
-    # Return list of best links (one per domain)
     return list(collected.values())
 
 
 def main() -> None:
     skus = [
         s.strip()
-        for s in pathlib.Path("skus2.txt").read_text().splitlines()
+        for s in pathlib.Path("skus.txt").read_text().splitlines()
         if s.strip()
     ]
-
     print(
         f"🔍 Starting search for {len(skus)} SKUs across {len(ALLOWED_DOMAINS)} domains"
     )
@@ -156,23 +128,14 @@ def main() -> None:
     with open(OUTPUT_FILE, "w", encoding="utf-8") as out:
         for i, sku in enumerate(skus, 1):
             print(f"[{i}/{len(skus)}] Processing SKU: {sku}", end=" ... ")
-
             links = find_links_for(sku)
             if links:
                 for link in links:
                     out.write(f"{sku}\t{link}\n")
-                print(f"✓ Found {len(links)} unique link(s)")
-
-                # Show which domains had results
-                domains_found = []
-                for link in links:
-                    domain = normalize(urlparse(link).netloc)
-                    if domain not in domains_found:
-                        domains_found.append(domain)
-                print(f"  📍 Domains: {', '.join(domains_found)}")
+                print(f"✓ Found {len(links)} link(s)")
             else:
                 out.write(f"{sku}\tNOT_FOUND\n")
-                print("❌ No matching results found")
+                print("❌ No matching results")
 
     print("─" * 60)
     print(f"✅ Search completed! Results saved to: {OUTPUT_FILE}")
