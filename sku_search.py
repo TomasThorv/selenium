@@ -26,7 +26,7 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 # ─── Configuration ────────────────────────────────────────────────────────────
 CHROMEDRIVER = "chromedriver"  # change if the executable name differs
-TIMEOUT = 10  # seconds allowed per SKU
+TIMEOUT = 15  # seconds allowed per SKU
 SEARCH_URL = "https://duckduckgo.com/?q={query}&ia=web"
 TITLE_SEL = "a[data-testid='result-title-a'], a.result__a"
 HEADLESS = True  # flip to False if you want to see the UI
