@@ -63,8 +63,8 @@ except NoSuchElementException:
     # Alternative selector for search box
 
     input_element = driver.find_element(By.NAME, "q")
-    input_element.send_keys("Selenium WebDriver" + Keys.ENTER)
-    link = driver.find_element(By.PARTIAL_LINK_TEXT, "Selenium")
+    input_element.send_keys("580456-006" + Keys.ENTER)
+    link = driver.find_element(By.PARTIAL_LINK_TEXT, "580456-006")
     link.click()
 
 
