@@ -48,6 +48,10 @@ ALLOWED_DOMAINS = [
     "br.puma.com",
     "soccerandrugby.com",
     "adsport.store",
+    "mybrand.shoes",
+    "u90soccer.com",
+    "ebay.com",
+    "amazon.com",
 ]
 OUTPUT_FILE = "sku_links_limited.txt"
 # ──────────────────────────────────────────────────────────────────────────────
