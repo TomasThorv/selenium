@@ -14,7 +14,7 @@ from collections import Counter
 
 COUNTS = Counter()
 
-with open("sku_links.txt", encoding="utf-8") as fh:
+with open("sku_links_limited.txt", encoding="utf-8") as fh:
     for line in fh:
         # keep lines that contain a URL
         parts = line.strip().split("\t", 1)

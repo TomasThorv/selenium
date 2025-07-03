@@ -9,7 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 
-INPUT_FILE = "sku_links.txt"
+INPUT_FILE = "sku_links_limited.txt"
 OUTPUT_FILE = "product_images.txt"
 
 
