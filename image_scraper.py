@@ -32,8 +32,8 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 
-INPUT_FILE = "sku_links_limited.txt"
-OUTPUT_FILE = "product_images.txt"
+INPUT_FILE = "files/sku_links_limited.txt"
+OUTPUT_FILE = "files/product_images.txt"
 CHROMEDRIVER = "chromedriver.exe"  # adjust if not on PATH
 HEADLESS = True  # flip to False to debug visually
 MIN_DIM = 100  # px – minimum natural width & height

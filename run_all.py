@@ -10,7 +10,7 @@ import sys
 
 def main():
     print("Running SKU search...")
-    result1 = subprocess.run([sys.executable, "sku_search2.py"])
+    result1 = subprocess.run([sys.executable, "sku_search_sites.py"])
 
     print("\nRunning image scraper...")
     result2 = subprocess.run([sys.executable, "image_scraper.py"])

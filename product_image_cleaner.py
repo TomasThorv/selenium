@@ -22,8 +22,8 @@ The output file preserves the original three‑column layout and order.
 import sys
 from pathlib import Path
 
-DEFAULT_IN = "product_images.txt"
-DEFAULT_OUT = "filtered_images.txt"
+DEFAULT_IN = "files/product_images.txt"
+DEFAULT_OUT = "files/filtered_images.txt"
 
 
 def keep_row(sku: str, url: str) -> bool:

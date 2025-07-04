@@ -29,8 +29,8 @@ import sys, json
 from pathlib import Path
 from collections import OrderedDict
 
-DEFAULT_IN = "filtered_images.txt"
-DEFAULT_OUT = "images.json"
+DEFAULT_IN = "files/filtered_images.txt"
+DEFAULT_OUT = "files/images.json"
 
 
 def build_mapping(lines: list[str]):

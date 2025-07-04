@@ -50,7 +50,7 @@ ALLOWED_DOMAINS = [
     "yoursportsperformance.com",
 ]
 
-OUTPUT_FILE = "sku_links_limited.txt"
+OUTPUT_FILE = "files/sku_links_limited.txt"
 # ──────────────────────────────────────────────────────────────────────────────
 
 
@@ -116,7 +116,7 @@ def find_links_for(sku: str) -> list[str]:
 def main() -> None:
     skus = [
         s.strip()
-        for s in pathlib.Path("skus.txt").read_text().splitlines()
+        for s in pathlib.Path("files/skus.txt").read_text().splitlines()
         if s.strip()
     ]
     total = len(skus)
