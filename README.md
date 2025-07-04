@@ -1,4 +1,4 @@
-# Selenium Toolkit for Product Scraping and Captcha Solving
+# Selenium Toolkit for Product Scraping
 
 This repository contains a collection of Selenium scripts used to search for product pages, scrape images, and handle captcha challenges. The scripts can be run individually or through the provided pipeline.
 
