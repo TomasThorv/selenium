@@ -10,16 +10,18 @@ import sys
 
 def main():
     print("Running SKU search...")
-    result1 = subprocess.run([sys.executable, "sku_search_sites.py"])
+    result1 = subprocess.run([sys.executable, "scraping_process/sku_search_sites.py"])
 
     print("\nRunning image scraper...")
-    result2 = subprocess.run([sys.executable, "image_scraper.py"])
+    result2 = subprocess.run([sys.executable, "scraping_process/image_scraper.py"])
 
     print("\nRunning product image cleaner...")
-    result3 = subprocess.run([sys.executable, "product_image_cleaner.py"])
+    result3 = subprocess.run(
+        [sys.executable, "scraping_process/product_image_cleaner.py"]
+    )
 
     print("\nRunning images to JSON...")
-    result4 = subprocess.run([sys.executable, "images_to_json.py"])
+    result4 = subprocess.run([sys.executable, "scraping_process/images_to_json.py"])
 
     print("\nDone!")
 
