@@ -29,7 +29,7 @@ SEARCH_URL = "https://duckduckgo.com/?q={query}&ia=web"
 TITLE_SEL = "a[data-testid='result-title-a'], a.result__a"
 HEADLESS = True  # flip to False to see browser
 STRICT_SKU_MATCH = True  # enforce exact SKU boundaries in URL
-MAX_LINKS_PER_SKU = 2  # ← new: stop after N links per SKU
+MAX_LINKS_PER_SKU = 4  # ← new: stop after N links per SKU
 
 ALLOWED_DOMAINS = [
     "solesense.com",

@@ -1,14 +1,9 @@
-SKU	Name	Image_URL
 107715-03	PUMA Future Match 7 FG AG | Pink | Size 13 'Forever Faster Pack' - 107715-03 | Solesense	https://assets.solesense.com/en/images/products/500/puma-future-7-match-firm-ground-artificial-ground-sunset-glow-107715-03_1.jpg
 107715-03	Football boots Puma Future 7 Match FG/AG	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_107715-03_0-nw102924.jpg
 107715-03	PUMA Future 7 Match FG Soccer Cleats | Forever Faster Pack	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/107715-03_g01.jpg
-107715-03	Access denied	
 106989-01	PUMA Future 1.4 FG AG | | Size 5.5 'Fastest Pack' - 106989-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-future-1-4-fg-ag-fastest-pack-106989-01_1.jpg
 106989-01	Soccer shoes Puma Future Z 1.4 FG/AG - Fastest Pack	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_106989-01_0-flop052224.jpg
 106989-01	PUMA Future 1.4 FG Soccer Cleats | Fastest Pack	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/106989-01_g01.jpg
-106989-01	Access denied	
-022753-02		
-023385-01		
 024038-03	Ribbed beanie with lapel Puma Classic	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_024038-03_smoked-pearl_5.jpg
 024038-03	Beanie Puma RIBBED CLASSIC CUFF BEANIE grey | AD Sport.store	https://www.adsport.cz/data/zbozi/puma/1200x630/puma-ribbed-classic-cuff-beanie_024038-03_1.jpg
 024038-03	Puma Ribbed Classic Cuff Beanie 02403803	https://cdn.mybrand.shoes/621880-thickbox_default/puma-ribbed-classic-cuff-beanie-024038-03.jpg
@@ -17,197 +12,109 @@ SKU	Name	Image_URL
 051156-01	PUMA Cat Wristband black 051156 01	https://sportano.com/img/986c30c27a3d26a3ee16c136f92f4ff5/4/0/4048148286555_40-jpg/puma-cat-wristband-black-051156-01-0.jpg
 051156-02	PUMA Cat Wristband white 051156 02	https://sportano.com/img/986c30c27a3d26a3ee16c136f92f4ff5/4/0/4048148286562_40-jpg/puma-cat-wristband-white-051156-02-0.jpg
 052212-02	PUMA Neck Warmer II football chimney black 052212 02	https://sportano.com/img/986c30c27a3d26a3ee16c136f92f4ff5/4/0/4051409664429_20-jpg/puma-neck-warmer-ii-football-chimney-black-052212-02-0.jpg
-054088-01		
-023389-15		
-024102-09		
 041814-05	PUMA Ultra Grip 2 RC Goalkeeper Gloves	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/0/4/041814-05_g01.jpg
-041814-05	Puma Ultra Grip 2 RC Goalkeeper Gloves	http://soccerpost.com/cdn/shop/products/ScreenShot2023-03-21at2.14.14PM_clipped_rev_1.png?v=1680891565
 041814-05	Puma Ultra Grip 2 RC Glove - Orange	https://soccerandrugby.com/media/catalog/product/cache/f6b5eb721f2bbee3a9b82ea5ecb92000/041814-05.jpg
 041814-05	Gloves Puma Ultra Grip 2 RC 041814 05	https://cdn.mybrand.shoes/611046-thickbox_default/gloves-puma-ultra-grip-2-rc-041814-05.jpg
 041815-05	PUMA children's goalkeeper gloves Ultra Grip 2 RC blue-orange 041815 05	https://sportano.com/img/986c30c27a3d26a3ee16c136f92f4ff5/4/0/4065452956585_20-jpg/puma-children-s-goalkeeper-gloves-ultra-grip-2-rc-blue-orange-041815-05-0.jpg
 041815-05	Goalkeeper gloves Puma ULTRA GRIP 2 JR RC orange | AD Sport.store	https://www.adsport.cz/data/zbozi/puma/1200x630/puma-ultra-grip-2-jr-rc_041815-05_1.jpg
 041862-08	Kid's goalie gloves Puma Ultra Play RC	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_041862-08_0.jpg
-041865-08	(PUMA-041865-08) Guantes de portero juvenil Puma Ultra Match Protect RC [ROSA] (Lanzamiento 4/11/24)	https://cdn.shopify.com/s/files/1/0570/9706/0542/files/u90-logo-trans1.png?height=628&pad_color=fff&v=1630346784&width=1200
 076859-01	PUMA TeamGOAL 23 Teambag 54 l football bag red/black 076859 01	https://sportano.com/img/986c30c27a3d26a3ee16c136f92f4ff5/4/0/4062451932893_20-jpg/puma-teamgoal-23-teambag-54-l-football-bag-red-black-076859-01-0.jpg
 076859-01	Bag Puma TEAMGOAL 23 TEAMBAG red | AD Sport.store	https://www.adsport.cz/data/zbozi/puma/1200x630/puma-teamgoal-23-teambag_076859-01_1.jpg
 076859-01	Bag Puma teamGOAL 23 size M 07685901	https://cdn.mybrand.shoes/483202-thickbox_default/bag-puma-teamgoal-23-size-m-076859-01.jpg
-078176-06		
-078255-01		
-078273-02		
-079050-01		
-079057-01	Mochila Puma Manchester City Core	http://u90soccer.com/cdn/shop/files/ScreenShot2022-08-09at2.33.34PM_clipped_rev_1_1200x1200.png?v=1729153336
 079064-07	PUMA Borussia Dortmund FtblCore Gymsack	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/0/7/079064-07_g01.jpg
-083864-01	Puma Orbita La Liga 1 Pro Official Match Ball	http://soccerpost.com/cdn/shop/products/ScreenShot2022-07-29at3.03.02PM_clipped_rev_1.png?v=1677602816
 083864-01	PUMA Orbit Laliga 1 Fifa Pro football 083864 01 size 5	https://sportano.com/img/986c30c27a3d26a3ee16c136f92f4ff5/4/0/4065449922616_20E-jpg/puma-orbit-laliga-1-fifa-pro-football-083864-01-size-5-0.jpg
 083864-01	Puma La Liga Orbita Pro Ball - White	https://soccerandrugby.com/media/catalog/product/cache/f6b5eb721f2bbee3a9b82ea5ecb92000/083864-01.jpg
 083864-01	Football Puma Orbita Laliga 1 FIFA Pro 083864 01	https://cdn.mybrand.shoes/740920-thickbox_default/football-puma-orbita-laliga-1-fifa-pro-083864-01.jpg
 083866-01	PUMA Orbit Laliga 1 HYB football 083866 01 size 5	https://sportano.com/img/986c30c27a3d26a3ee16c136f92f4ff5/4/0/4065449922654_20-jpg/puma-orbit-laliga-1-hyb-football-083866-01-size-5-0.jpg
-083866-01	Football ball Puma ORBITA LALIGA 1 HYB white | AD Sport.store	https://www.adsport.cz/data/zbozi/puma/1200x630/453393.jpg
-083875-01		
-083877-01		
-083884-01	Balloon Puma Neymar Jr [Size 5]	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/t/_/t_l_chargement_14__15.jpg
 083884-01	PUMA Neymar Jr. football. Graphic 083884 01 size 5	https://sportano.com/img/986c30c27a3d26a3ee16c136f92f4ff5/4/0/4065449749084_20-jpg/puma-neymar-jr-football-graphic-083884-01-size-5-0.jpg
-083942-01		
 083999-01	PUMA Orbit Serie A FIFA Quality Pro Football 083999 01 size 5	https://sportano.com/img/986c30c27a3d26a3ee16c136f92f4ff5/4/0/4065451674244_20-jpg/puma-orbit-serie-a-fifa-quality-pro-football-083999-01-size-5-0.jpg
 083999-01	Puma Serie A Orbita Pro Ball - White	https://soccerandrugby.com/media/catalog/product/cache/f6b5eb721f2bbee3a9b82ea5ecb92000/083999-01.jpg
-083999-01	Mybrand.Shoes	//cdn.mybrand.shoes/img/mybrandshoes-logo-1600696900.jpg
-083999-01	Puma Orbita Serie A Pro Match Ball	http://u90soccer.com/cdn/shop/files/ScreenShot2022-08-22at3.31.08PM_clipped_rev_1_1200x1200.png?v=1729153857
 084107-01	PUMA Orbita La Liga Soccer Ball	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/0/8/084107-01_g01.jpg
 084107-01	Puma La Liga Orbita 23 Ball - White	https://soccerandrugby.com/media/catalog/product/cache/f6b5eb721f2bbee3a9b82ea5ecb92000/084107-01.jpg
 084107-01	Puma Orbita LaLiga 1 FIFA Quality Ball 08410701	https://cdn.mybrand.shoes/598705-thickbox_default/puma-orbita-laliga-1-fifa-quality-ball-084107-01.jpg
-084107-01	Puma Orbita La Liga 1 FIFA Quality Ball	http://u90soccer.com/cdn/shop/files/ScreenShot2023-07-05at4.31.31PM_1200x1200.png?v=1729153775
-084109-01	¡Bienvenido a la tienda de fútbol de América!	https://soccerpost.com/cdn/shop/files/RoadtoGlory_Pack_Sqaure_20May2025_2_1.png?v=1748964206&width=768
-084109-01	Mybrand.Shoes	//cdn.mybrand.shoes/img/mybrandshoes-logo-1600696900.jpg
-084109-01	404 No encontrado	https://cdn.shopify.com/s/files/1/0570/9706/0542/files/u90-logo-trans1.png?height=628&pad_color=fff&v=1630346784&width=1200
 084115-01	Puma Serie A Orbita 23 Ball - White	https://soccerandrugby.com/media/catalog/product/cache/f6b5eb721f2bbee3a9b82ea5ecb92000/084115-01.jpg
-084115-01	Puma Orbita Serie A FIFA Quality Ball	http://u90soccer.com/cdn/shop/files/ScreenShot2023-07-05at5.04.37PM_1200x1200.png?v=1729153836
 084139-01	Mini Ball Puma Graphique [Size  5]	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_084139-01_1.jpg
 084139-01	PUMA Neymar Jr Graphic Soccer Ball	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/0/8/084139-01_g01.jpg
 084139-01	Puma Neymar Jr Graphic Ball - Multi	https://soccerandrugby.com/media/catalog/product/cache/f6b5eb721f2bbee3a9b82ea5ecb92000/084139-01.jpg
 084139-01	Football ball Puma NEYMAR JR GRAPHIC BALL white | AD Sport.store	https://www.adsport.cz/data/zbozi/puma/1200x630/puma-neymar-jr-graphic-ball_084139-01_1.jpg
 084476-01	PUMA Neymar BNA Graphic Ball	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/0/8/084476-01_g01.jpg
 106675-03	PUMA King Platinum 21 Vegan FG AG | | Size 7 'Fizzy Light Black' - 106675-03 | Solesense	https://assets.solesense.com/en/images/products/500/puma-king-platinum-21-vegan-fg-ag-fizzy-light-black-106675-03_1.jpg
-106675-03	Access denied	
-106675-03	www.kickscrew.com	
 106694-01	PUMA Ultra 1.4 FG AG ' | Size 13 'Diamond Silver Neon Citrus'' - 106694-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-ultra-1-4-fg-ag-diamond-silver-neon-citrus-106694-01_1.jpg
 106694-01	Football boots Puma Ultra 1.4 FG/AG - Instinct Pack	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_106694-01_9-flop052224.jpg
 106694-01	PUMA Ultra 1.4 FG Soccer Cleats | Instinct Pack	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/106694-01_g01.jpg
-106694-01	Access denied	
 106694-03	PUMA Ultra 1.4 FG AG | | Size 10.5 'Festival Fuchsia' - 106694-03 | Solesense	https://assets.solesense.com/en/images/products/500/puma-ultra-1-4-fg-ag-festival-fuchsia-106694-03_1.jpg
 106694-03	Football boots Puma Ultra 1.4 FG/AG	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_106694-03_5-flop052224.jpg
-106694-03	Access denied	
-106694-03	www.kickscrew.com	
 106696-02	PUMA King 21 IT Football Boots 'White Black Gum' - 106696-02 | Solesense	https://assets.solesense.com/en/images/products/500/puma-king-21-it-football-boots-white-black-gum-106696-02_1.jpg
 106696-02	PUMA King 21 IT	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/106696-02_g01.jpg
-106696-02	www.kickscrew.com	
 106696-02	Goalkeeper gloves Puma KING 21 IT | AD Sport.store	https://www.adsport.cz/data/zbozi/puma/1200x630/puma-king-21-it_106696-02_1.jpg
 106696-02	PUMA King 21 IT Football Boots 'White Black Gum' - 106696-02 | Solesense	https://assets.solesense.com/en/images/products/500/puma-king-21-it-football-boots-white-black-gum-106696-02_1.jpg
 106696-02	PUMA King 21 IT	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/106696-02_g01.jpg
-106696-02	www.kickscrew.com	
 106696-02	Goalkeeper gloves Puma KING 21 IT | AD Sport.store	https://www.adsport.cz/data/zbozi/puma/1200x630/puma-king-21-it_106696-02_1.jpg
 106723-01	PUMA Ultra 1.4 FG AG | Size 6 'Diamond Silver Fizzy Light' - 106723-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-ultra-1-4-fg-ag-diamond-silver-fizzy-light-106723-01_1.jpg
 106723-01	PUMA Ultra 1.4 Women's FG Soccer Cleats	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/106723-01_g01.jpg
-106723-01	Access denied	
-106723-01	www.kickscrew.com	
-106738-01	Buy Ultra 3.4 FG AG Jr 'Diamond Silver Neon Citrus' - 106738 01 | GOAT UK	https://image.goat.com/transform/v1/attachments/product_template_pictures/images/074/222/494/original/106738_01.png.png?width=750
 106738-01	Puma Ultra 3.4 FG/AG Jr - Silver	https://soccerandrugby.com/media/catalog/product/cache/f6b5eb721f2bbee3a9b82ea5ecb92000/106738-01.jpg
 106751-01	PUMA Future Z 1.3 'Neon Citrus Black' - 106751-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-future-z-1-3-neon-citrus-black-106751-01_1.jpg
-106751-01	Football boots Puma FUTURE Z 1.3 FG/AG - Instinct Pack	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/c/a/capture_d_e_cran_2022-03-24_a_11.34.18.jpg
 106751-01	PUMA Future 1.3 FG Soccer Cleats | Instinct Pack	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/106751-01_g01.jpg
-106751-01	Access denied	
-106773-01	Access denied	
 106849-01	Soccer shoes Puma Ultra 1.4 First Mile FG	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_106849-01_9-flop052224.jpg
-106849-01	www.kickscrew.com	
 106868-01	PUMA Ultra Ultimate FG AG | | Size 8.5 'Fastest Pack' - 106868-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-ultra-ultimate-fg-ag-fastest-pack-106868-01_1.jpg
 106868-01	Football boots Puma Ultra Ultimate FG/AG - Fastest Pack	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_106868-01_9-flop052224.jpg
-106868-01	Access denied	
-106868-01	Puma Ultra Ultimate Firm Ground Cleats	http://soccerpost.com/cdn/shop/products/ScreenShot2022-09-06at5.00.03PM_clipped_rev_1.png?v=1677608425
 106868-03	PUMA Ultra Ultimate FG AG | Orange | Size 12 'Fearless Pack' - 106868-03 | Solesense	https://assets.solesense.com/en/images/products/500/puma-ultra-ultimate-fg-ag-fearless-pack-106868-03_1.jpg
 106868-03	PUMA Ultra Ultimate FG Soccer Cleats | Fearless Pack	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/106868-03_g01.jpg
-106868-03	Access denied	
-106868-03	Puma Ultra Ultimate AG Firm Ground Cleats	http://soccerpost.com/cdn/shop/products/ScreenShot2022-12-02at5.50.30PM_clipped_rev_1.png?v=1677608420
-106876-03		
-106882-02	Access denied	
-106883-02		
 107563-06	PUMA King Ultimate FG AG | | Size 10.5 'Phenomenal Pack' - 107563-06 | Solesense	https://assets.solesense.com/en/images/products/500/puma-king-ultimate-fg-ag-phenomenal-pack-107563-06_1.jpg
 107563-06	Football boots Puma King Ultimate FG/AG	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_107563-06_5-nw102924.jpg
 107563-06	PUMA King Ultimate FG Soccer Cleats | Phenomenal Pack	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/107563-06_g01.jpg
-107563-06	Access denied	
 107563-08	PUMA King Ultimate FG AG | Orange | Size 9.5 'Forever Faster Pack' - 107563-08 | Solesense	https://assets.solesense.com/en/images/products/500/puma-king-ultimate-fg-ag-forever-faster-pack-107563-08_1.jpg
 107563-08	Football boots Puma King Ultimate FG/AG	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_107563-08_5-nw102924.jpg
-107563-08	Access denied	
-107563-08	www.kickscrew.com	
 107563-02	PUMA King Ultimate FG AG | | Size 9.5 'Breakthrough Pack - Silver Sky' - 107563-02 | Solesense	https://assets.solesense.com/en/images/products/500/puma-king-ultimate-fg-ag-breakthrough-pack-silver-sky-107563-02_1.jpg
-107563-02	Access denied	
-107563-02	www.kickscrew.com	
 107563-02	Soft ground football boots Puma KING ULTIMATE FG/AG grey | AD Sport.store	https://www.adsport.cz/data/zbozi/puma/1200x630/puma-king-ultimate-fgag_107563-02_1.jpg
 107610-01	PUMA Neymar Jr. x Future Ultimate FG AG | | Size 8.5 'Instituto Pack' - 107610-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-neymar-jr-x-future-ultimate-fg-ag-instituto-pack-107610-01_1.jpg
 107610-01	Football boots Puma Future Ultimate Neymar Jr	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_107610-01_white_4.jpg
 107610-01	PUMA Future Ultimate FG/AG Soccer Cleats | Neymar Jr. Instituto Pack	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/107610-01_g01_1_1.jpg
-107610-01	Access denied	
 107612-01	PUMA Neymar Jr. x Future Match FG AG | White | Size 8.5 'Instituto Pack' - 107612-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-neymar-jr-x-future-match-fg-ag-instituto-pack-107612-01_1.jpg
-107612-01	Access denied	
-107612-01	Firm ground football boots Puma FUTURE MATCH NJR FG/AG white | AD Sport.store	https://www.adsport.cz/data/zbozi/puma/1200x630/472679.jpg
-107613-01	Access denied	
 107613-01	Puma Future Match FG/AG Jr - White/Green	https://soccerandrugby.com/media/catalog/product/cache/f6b5eb721f2bbee3a9b82ea5ecb92000/107613-01.jpg
-107613-01	Firm ground football boots Puma JR FUTURE MATCH NJR FG/AG white | AD Sport.store	https://www.adsport.cz/data/zbozi/puma/1200x630/472687.jpg
 107683-04	PUMA Ultra 5 Ultimate FG | Size 9 'White Pack' - 107683-04 | Solesense	https://assets.solesense.com/en/images/products/500/puma-ultra-5-ultimate-fg-white-pack-107683-04_1.jpg
 107683-04	Football boots Puma Ultra 5 Ultimate FG	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_107683-04_white_3.jpg
 107683-04	PUMA Ultra Ultimate 5 FG Soccer Cleats | White Pack	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/107683-04_g01.jpg
-107683-04	Access denied	
 107693-01	PUMA Ultra Pro 5 FG AG Big | Purple | Size 6 'Formula Pack' - 107693-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-ultra-pro-5-fg-ag-big-formula-pack-107693-01_1.jpg
 107693-01	PUMA Ultra 5 Pro FG Junior Soccer Cleats | Formula Pack	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/107693-01_g01.jpg
-107693-01	Access denied	
 107693-01	Puma Ultra 5 Pro FGAG Jr shoes 107693 01	https://cdn.mybrand.shoes/712319-thickbox_default/puma-ultra-5-pro-fg-ag-jr-shoes-107693-01.jpg
 107701-03	PUMA Future Ultimate FG AG | Orange | Size 6 'Forever Faster Pack' - 107701-03 | Solesense	https://assets.solesense.com/en/images/products/500/puma-future-ultimate-fg-ag-forever-faster-pack-107701-03_1.jpg
-107701-03	Access denied	
 107705-01	Puma Future 7 Pro FGAG M 107705 01 shoes	https://cdn.mybrand.shoes/804946-thickbox_default/puma-future-7-pro-fg-ag-m-107705-01-shoes.jpg
 107707-03	PUMA Future Pro 7 FG AG | | Size 8 'Forever Faster Pack' - 107707-03 | Solesense	https://assets.solesense.com/en/images/products/500/puma-future-pro-7-fg-ag-forever-faster-pack-107707-03_1.jpg
 107707-03	Football boots Puma Future 7 Pro FG/AG	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_107707-03_5-nw102924.jpg
-107707-03	Access denied	
-107707-03	Puma Future 7 Pro Firm Ground Cleats	http://soccerpost.com/cdn/shop/files/ScreenShot2024-05-28at11.57.45PM_clipped_rev_1.png?v=1717685313
-107728-01	Solesense：鞋子、衣服、饰品	https://assets.solesense.com/site/images/logos/solesense/square-black.png
-107728-01	Access denied	
 107728-03	PUMA Future Pro 7 FG AG Big | Pink | Size 6 'Forever Faster Pack' - 107728-03 | Solesense	https://assets.solesense.com/en/images/products/500/puma-future-pro-7-fg-ag-big-forever-faster-pack-107728-03_1.jpg
-107728-03	Access denied	
-107728-03	Welcome to America's Soccer Store!	https://soccerpost.com/cdn/shop/files/RoadtoGlory_Pack_Sqaure_20May2025_2_1.png?v=1748964206&width=768
 107728-03	Puma Future 7 Pro FGAG Jr 10772803 shoes	https://cdn.mybrand.shoes/728963-thickbox_default/puma-future-7-pro-fg-ag-jr-107728-03-shoes.jpg
 107729-01	PUMA Future Match 7 FG AG Big | White | Size 1.5 'Phenomenal Pack' - 107729-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-future-match-7-fg-ag-big-phenomenal-pack-107729-01_1.jpg
 107729-01	Children's Football boots Puma Future 7 Match FG/AG	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_107729-01_5-flop052224.jpg
-107729-01	Access denied	
-107729-01	Mybrand.Shoes	//cdn.mybrand.shoes/img/mybrandshoes-logo-1600696900.jpg
 107729-03	PUMA Future Match 7 FG AG Big | Pink | Size 6 'Forever Faster Pack' - 107729-03 | Solesense	https://assets.solesense.com/en/images/products/500/puma-future-match-7-fg-ag-big-forever-faster-pack-107729-03_1.jpg
 107729-03	Children's Football boots Puma Future 7 Match FG/AG	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_107729-03_5-nw102924.jpg
-107729-03		https://d2lhrgc5rek5ye.cloudfront.net/pub/media/wysiwyg/TeamHubSports.jpg
-107729-03	Access denied	
-107731-01	Solesense: Shoes, Clothing, Accessories	https://assets.solesense.com/site/images/logos/solesense/square-black.png
 107737-01	PUMA Future Play 7 TF Big | White | Size 1 'Phenomenal Pack' - 107737-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-future-play-7-tf-big-phenomenal-pack-107737-01_1.jpg
-107737-01	Access denied	
 107737-01	Turfs Puma JR FUTURE 7 PLAY TT white | AD Sport.store	https://www.adsport.cz/data/zbozi/puma/1200x630/puma-jr-future-7-play-tt_107737-01_1.jpg
-107737-01	Mybrand.Shoes	//cdn.mybrand.shoes/img/mybrandshoes-logo-1600696900.jpg
 107744-01	PUMA Ultra Ultimate FG AG | White | Size 9 'Phenomenal Pack' - 107744-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-ultra-ultimate-fg-ag-phenomenal-pack-107744-01_1.jpg
 107744-01	Football boots Puma Ultra Ultimate FG/AG	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_107744-01_5-nw102924.jpg
 107744-01	PUMA Ultra Ultimate FG Soccer Cleats | Phenomenal Pack	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/107744-01_g01.jpg
-107744-01	Access denied	
 107744-03	PUMA Ultra Ultimate FG AG | | Size 9 'Forever Faster Pack' - 107744-03 | Solesense	https://assets.solesense.com/en/images/products/500/puma-ultra-ultimate-fg-ag-forever-faster-pack-107744-03_1.jpg
 107744-03	Football boots Puma Ultra Ultimate FG/AG	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_107744-03_0-nw102924.jpg
 107744-03	PUMA Ultra Ultimate FG Soccer Cleats | Forever Faster Pack	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/107744-03_g01.jpg
-107744-03	Access denied	
 107752-01	PUMA Ultra Pro MG Football Boots 'Pink White Black' - 107752-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-ultra-pro-mg-football-boots-pink-white-black-107752-01_1.jpg
-107752-01	www.kickscrew.com	
 107767-01	PUMA Ultra Ultimate FG AG 'Phenomenal Pack' - 107767-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-ultra-ultimate-fg-ag-phenomenal-pack-107767-01_1.jpg
-107767-01	Access denied	
 107767-03	PUMA Ultra Ultimate FG AG | | Size 9.5 'Forever Faster Pack' - 107767-03 | Solesense	https://assets.solesense.com/en/images/products/500/puma-ultra-ultimate-fg-ag-forever-faster-pack-107767-03_1.jpg
-107767-03	Access denied	
 107769-01	PUMA Ultra Pro FG AG Big | Pink | Size 6.5 'Phenomenal Pack' - 107769-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-ultra-pro-fg-ag-big-phenomenal-pack-107769-01_1.jpg
-107769-01	Access denied	
 107769-01	Puma Ultra Pro FGAG Jr 10776901 shoes	https://cdn.mybrand.shoes/721266-thickbox_default/puma-ultra-pro-fg-ag-jr-107769-01-shoes.jpg
-107770-01	Solesense: Chaussures, Vêtements, Accessoires	https://assets.solesense.com/site/images/logos/solesense/square-black.png
-107770-01	Page not found	
 107770-01	PUMA Ultra Match LL FG Junior Soccer Cleats | Phenomenal Pack	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/107770-01_g04.jpg
 107770-01	Puma Ultra Match LL FGAG Jr 10777001 shoes	https://cdn.mybrand.shoes/662085-thickbox_default/puma-ultra-match-ll-fg-ag-jr-107770-01-shoes.jpg
 107770-03	Children's Football boots Puma Ultra Match LL FG/AG	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_107770-03_5-nw102924.jpg
 107809-02	PUMA King Ultimate FG AG | White | Size 7 'Formula Pack' - 107809-02 | Solesense	https://assets.solesense.com/en/images/products/500/puma-king-ultimate-fg-ag-formula-pack-107809-02_1.jpg
 107809-02	Soccer shoes Puma King Ultimate FG/AG	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_107809-02_puma-white-bluemazing-flat-light-gray-sunset-glow_5.jpg
 107809-02	PUMA King Ultimate FG Soccer Cleats | Formula Pack	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/107809-02_g01.jpg
-107809-02	Access denied	
 107809-03	PUMA King Ultimate FG AG | Grey | Size 4.5 'Lights Out Pack' - 107809-03 | Solesense	https://assets.solesense.com/en/images/products/500/puma-king-ultimate-fg-ag-lights-out-pack-107809-03_1.jpg
 107809-03	Football boots Puma King Ultimate FG/AG	https://media.foot-store.com/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/p/u/puma_107809-03_2.jpg
 107809-03	PUMA King Ultimate FG Soccer Cleats | Lights Out Pack	https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/c5cb1fc7f89dfcc45015a812ee4cca1a/1/0/107809-03_g01.jpg
-107809-03	Access denied	
 107824-01	PUMA King Ultimate FG AG | | Size 9 'Rush Pack' - 107824-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-king-ultimate-fg-ag-rush-pack-107824-01_1.jpg
-107824-01	Access denied	
-107824-01	www.kickscrew.com	
 107824-01	Puma King Ultimate Rush FGAG M 107824 01 football shoes	https://cdn.mybrand.shoes/680802-thickbox_default/puma-king-ultimate-rush-fg-ag-m-107824-01-football-shoes.jpg
 107827-01	PUMA Ultra Ultimate FG AG | | Size 10 'Rush Pack' - 107827-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-ultra-ultimate-fg-ag-rush-pack-107827-01_1.jpg
-107827-01	Access denied	
-107827-01	www.kickscrew.com	
 107827-01	Puma Ultra Ultimate Rush FGAG 10782701 shoes	https://cdn.mybrand.shoes/662005-thickbox_default/puma-ultra-ultimate-rush-fg-ag-107827-01-shoes.jpg
 107828-01	PUMA Future Ultimate 7 FG AG | | Size 11 'Rush Pack' - 107828-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-future-ultimate-7-fg-ag-rush-pack-107828-01_1.jpg
-107828-01	Access denied	
-107828-01	www.kickscrew.com	
 107828-01	Puma Future 7 Ultimate Rush FGAG M 107828 01 football shoes	https://cdn.mybrand.shoes/680817-thickbox_default/puma-future-7-ultimate-rush-fg-ag-m-107828-01-football-shoes.jpg
 107836-01	PUMA Future Ultimate 7 FG AG | | Size 12 'Creativity Pack' - 107836-01 | Solesense	https://assets.solesense.com/en/images/products/500/puma-future-ultimate-7-fg-ag-creativity-pack-107836-01_1.jpg
-107836-01	Access denied	
-107836-01	www.kickscrew.com	
 107836-01	Puma Future 7 Ultimate Creativity FGAG M 107836 01 football shoes	https://cdn.mybrand.shoes/670565-thickbox_default/puma-future-7-ultimate-creativity-fg-ag-m-107836-01-football-shoes.jpg

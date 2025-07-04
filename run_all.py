@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 run_all.py – Simple script runner
-Run sku_search2.py then image_scraper.py
+Run sku_search2.py then image_scraper.py then product_image_cleaner.py then images_to_json.py
 """
 
 import subprocess
@@ -15,11 +15,13 @@ def main():
     print("\nRunning image scraper...")
     result2 = subprocess.run([sys.executable, "image_scraper.py"])
 
+    print("\nRunning product image cleaner...")
+    result3 = subprocess.run([sys.executable, "product_image_cleaner.py"])
+
+    print("\nRunning images to JSON...")
+    result4 = subprocess.run([sys.executable, "images_to_json.py"])
+
     print("\nDone!")
-
-
-if __name__ == "__main__":
-    main()
 
 
 if __name__ == "__main__":
