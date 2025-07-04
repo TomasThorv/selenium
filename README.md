@@ -1,88 +1,23 @@
-# Selenium Captcha Solving Integration
+# Selenium Toolkit for Product Scraping and Captcha Solving
 
-This project integrates two Selenium scripts to handle captcha solving:
+This repository contains a collection of Selenium scripts used to search for product pages, scrape images, and handle captcha challenges. The scripts can be run individually or through the provided pipeline.
 
-- `main.py`: Your main automation script using local Chrome
-- `main2.py`: Bright Data script that solves captchas
+## Pipeline Overview
 
-## How It Works
+The typical workflow is:
 
-### 1. Main Script (main.py)
+1. **`sku_search_sites.py`** – Search each SKU from `skus.txt` across a restricted list of domains. Results are written to `sku_links_limited.txt` (at most two links per SKU).
+2. **`image_scraper.py`** – Visit each link and extract the main product image. Output is a tab-separated file `product_images.txt` containing the SKU, product name, and image URL.
+3. **`product_image_cleaner.py`** – Filter the scraped list, removing rows without an image or where the URL does not contain the SKU. The cleaned file is `filtered_images.txt`.
+4. **`images_to_json.py`** – Convert the cleaned text file into `images.json` with the nested structure expected by downstream tools.
+5. **`run_all.py`** – Convenience script that executes the above steps in sequence.
 
-- Runs your main automation tasks using local Chrome
-- Detects captchas on the page
-- When captcha is found, it:
-  - Saves current session state to `session_state.json`
-  - Calls `main2.py` to solve the captcha
-  - Reads the solution from `captcha_solution.json`
-  - Applies the solution and continues
-
-### 2. Bright Data Script (main2.py)
-
-- Uses Bright Data's residential proxies and captcha solving
-- Reads session state from `session_state.json`
-- Solves captcha automatically
-- Saves solution data to `captcha_solution.json`
-
-## Files Created During Process
-
-- `session_state.json`: Current URL and cookies from main.py
-- `captcha_solution.json`: Solved captcha data (cookies, final URL)
-- `page.png`: Screenshot of the solved page
-- `page_source.html`: HTML source for debugging
-
-## Usage
-
-### Normal Operation
+Run the full pipeline with:
 
 ```bash
-python main.py
+python run_all.py
 ```
 
-The script will automatically call main2.py if a captcha is detected.
+file_handler contains files for assessing the most common websites to contain the skus
 
-### Standalone Bright Data Testing
-
-```bash
-python main2.py
-```
-
-Runs the Bright Data script independently for testing.
-
-### Test Integration
-
-```bash
-python test_integration.py
-```
-
-Creates test files to simulate the integration.
-
-## Captcha Detection
-
-The system detects captchas by looking for:
-
-- reCAPTCHA elements (`iframe[src*='recaptcha']`)
-- Captcha divs (`div[id*='captcha']`)
-- Text indicators ("unusual traffic", "verify you're not a robot")
-
-## Solution Transfer
-
-When main2.py solves a captcha, it saves:
-
-- **Cookies**: Session cookies from the solved page
-- **Final URL**: The URL after captcha solving
-- **User Agent**: Browser user agent string
-- **Status**: Success/failure indicator
-
-## Error Handling
-
-- If captcha solving fails, main.py continues anyway
-- All errors are logged with descriptive messages
-- Debug files are saved for troubleshooting
-
-## Requirements
-
-- Selenium WebDriver
-- Chrome/ChromeDriver for main.py
-- Bright Data account and credentials for main2.py
-- Python 3.7+
+requirements in requirements.txt
