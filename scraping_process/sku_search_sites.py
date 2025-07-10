@@ -1,37 +1,48 @@
 #!/usr/bin/env python3
 """
-sku_search_limited.py – Search each SKU in **skus.txt** on a restricted list of
-domains and write at most **two** product‑page links per SKU.
+sku_search_async.py (dual‑progress edition)
+==========================================
 
-Changes in v0.4 (2025‑07‑03)
-────────────────────────────
-* New constant **`MAX_LINKS_PER_SKU = 2`**
-* `find_links_for()` stops searching once that many links have been collected,
-  so we no longer gather a long tail of results.
-* Everything else – input file, output file, CLI flags – stays exactly the same.
+▶ **Two live progress bars**
+
+* **Domain requests** (top bar): ticks every time *any* site query finishes –
+  you immediately see the script working even with thousands of SKUs.
+* **SKUs completed** (bottom bar): advances once a whole SKU (all its domain
+  searches) is done.
+
+Run with:
+
+    $ python sku_search_async.py
+
+Input  : `files/skus.txt` (one SKU per line)
+Output : `files/sku_search_results.csv`
+
+Dependencies:
+
+    pip install "httpx[http2]" beautifulsoup4 tqdm
 """
-
 from __future__ import annotations
 
-import pathlib, sys, time, re
-from urllib.parse import urlparse
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+import asyncio
+import csv
+import re
+import sys
+import urllib.parse
+from pathlib import Path
+from typing import Iterable, List, Dict, Optional
 
-# ─── Configuration ────────────────────────────────────────────────────────────
-CHROMEDRIVER = "chromedriver"  # executable name or full path
-TIMEOUT = 10  # seconds per search/page load
-SEARCH_URL = "https://duckduckgo.com/?q={query}&ia=web"
-TITLE_SEL = "a[data-testid='result-title-a'], a.result__a"
-HEADLESS = True  # flip to False to see browser
-STRICT_SKU_MATCH = True  # enforce exact SKU boundaries in URL
-MAX_LINKS_PER_SKU = 4  # ← new: stop after N links per SKU
+import httpx
+from bs4 import BeautifulSoup
+from tqdm import tqdm
+from tqdm.asyncio import tqdm_asyncio  # type: ignore
 
-ALLOWED_DOMAINS = [
+# --------------------------------------------------------------------------- #
+# CONFIGURATION                                                               #
+# --------------------------------------------------------------------------- #
+INPUT_FILE: Path = Path("files/skus.txt")
+OUTPUT_FILE: Path = Path("files/sku_search_results.csv")
+
+ALLOWED_DOMAINS: List[str] = [
     "solesense.com",
     "nike.com",
     "foot-store.com",
@@ -50,103 +61,154 @@ ALLOWED_DOMAINS = [
     "yoursportsperformance.com",
 ]
 
-OUTPUT_FILE = "files/sku_links_limited.txt"
-# ──────────────────────────────────────────────────────────────────────────────
+SEARCH_URL: str = "https://duckduckgo.com/lite?q={query}"
+TITLE_SELECTOR: str = "a.result-link"
+
+TIMEOUT_SECS: int = 10  # per‑request timeout
+CONCURRENT_QUERIES: int = 50  # global parallel requests
+MAX_LINKS_PER_SKU: int = 2  # stop after this many matches per SKU
+FUZZY_MATCH: bool = False  # True → substring match; False → word‑boundaries
+
+# --------------------------------------------------------------------------- #
+# GLOBAL PROGRESS BAR (updated from every task)                               #
+# --------------------------------------------------------------------------- #
+_domain_bar: Optional[tqdm] = None  # will become a real bar in _gather_all
+
+# --------------------------------------------------------------------------- #
+# NETWORK HELPERS                                                             #
+# --------------------------------------------------------------------------- #
 
 
-def normalize(domain: str) -> str:
-    d = domain.lower()
-    return d[4:] if d.startswith("www.") else d
+async def _fetch(session: httpx.AsyncClient, url: str) -> str | None:
+    try:
+        r = await session.get(url)
+        r.raise_for_status()
+        return r.text
+    except (httpx.HTTPError, httpx.TimeoutException):
+        return None
 
 
-ALLOWED_NORMALIZED = {normalize(d) for d in ALLOWED_DOMAINS}
+async def _search_domain(
+    session: httpx.AsyncClient,
+    sem: asyncio.Semaphore,
+    sku: str,
+    domain: str,
+    regex: re.Pattern,
+) -> str | None:
+    """Return first valid link for *sku* on *domain*, else None."""
+    global _domain_bar
+    query = f"site:{domain} {sku}"
+    url = SEARCH_URL.format(query=urllib.parse.quote_plus(query))
 
-# ─── Selenium bootstrap ───────────────────────────────────────────────────────
-opts = webdriver.ChromeOptions()
-if HEADLESS:
-    opts.add_argument("--headless=new")
-    opts.add_experimental_option("excludeSwitches", ["enable-automation"])
-try:
-    service = Service(executable_path="chromedriver.exe")
-    driver = webdriver.Chrome(service=service)
-except Exception as e:
-    sys.exit(f"❌ Could not start Chrome: {e}")
+    async with sem:
+        html = await _fetch(session, url)
 
-wait = WebDriverWait(driver, TIMEOUT)
-
-# ─── Search helper ────────────────────────────────────────────────────────────
-
-
-def find_links_for(sku: str) -> list[str]:
-    """Return up to *MAX_LINKS_PER_SKU* product links for *sku*."""
-    collected: dict[str, str] = {}
-    sku_lower = sku.lower()
-    sku_regex = re.compile(rf"\b{re.escape(sku_lower)}\b") if STRICT_SKU_MATCH else None
-
-    for domain in ALLOWED_DOMAINS:
-        if len(collected) >= MAX_LINKS_PER_SKU:
-            break  # we already have enough links ➜ stop searching
-
-        query = f"site:{domain} {sku}"
-        driver.get(SEARCH_URL.format(query=query))
-        try:
-            wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, TITLE_SEL)))
-        except TimeoutException:
-            continue
-
-        for a in driver.find_elements(By.CSS_SELECTOR, TITLE_SEL):
-            href = a.get_attribute("href") or ""
-            if not href.startswith("http"):
-                continue
-            if normalize(urlparse(href).netloc) != normalize(domain):
-                continue
-            if sku_regex and not sku_regex.search(href.lower()):
-                continue
-            collected[normalize(domain)] = href
-            break  # one link per domain is enough
-
-        time.sleep(0.2)  # politeness delay
-
-    return list(collected.values())
+    link: str | None = None
+    if html:
+        soup = BeautifulSoup(html, "html.parser")
+        for a in soup.select(TITLE_SELECTOR):
+            href = a.get("href", "")
+            if (
+                href.startswith("http")
+                and domain in href
+                and regex.search(href.lower())
+            ):
+                link = href
+                print(f"[{sku}] ✓ {domain}")
+                break
+    # tick the domain‑level bar regardless of outcome
+    if _domain_bar is not None:
+        _domain_bar.update(1)
+    return link
 
 
-# ─── Driver code ──────────────────────────────────────────────────────────────
+async def _links_for_sku(
+    session: httpx.AsyncClient,
+    sem: asyncio.Semaphore,
+    sku: str,
+) -> List[str]:
+    regex = (
+        re.compile(re.escape(sku.lower()))
+        if FUZZY_MATCH
+        else re.compile(rf"\b{re.escape(sku.lower())}\b")
+    )
+    tasks = [
+        asyncio.create_task(_search_domain(session, sem, sku, d, regex))
+        for d in ALLOWED_DOMAINS
+    ]
+    found: List[str] = []
+    for coro in asyncio.as_completed(tasks):
+        link = await coro
+        if link:
+            found.append(link)
+            if len(found) == MAX_LINKS_PER_SKU:
+                for t in tasks:
+                    t.cancel()
+                break
+    print(f"[{sku}] ⇒ {len(found)} link(s) found")
+    return found
+
+
+async def _gather_all(skus: Iterable[str]) -> Dict[str, List[str]]:
+    """Gather links for every SKU while showing two progress bars."""
+    global _domain_bar
+
+    total_domains = len(skus) * len(ALLOWED_DOMAINS)
+    _domain_bar = tqdm(total=total_domains, desc="Domain requests", unit="req")
+
+    sem = asyncio.Semaphore(CONCURRENT_QUERIES)
+    timeout = httpx.Timeout(TIMEOUT_SECS)
+    async with httpx.AsyncClient(
+        follow_redirects=True, timeout=timeout, http2=True
+    ) as s:
+        coros = [_links_for_sku(s, sem, sku) for sku in skus]
+        # bottom bar (SKUs completed)
+        results = await tqdm_asyncio.gather(*coros, desc="SKUs done", unit="sku")
+
+    _domain_bar.close()
+    return dict(zip(skus, results))
+
+
+# --------------------------------------------------------------------------- #
+# I/O UTILITIES                                                               #
+# --------------------------------------------------------------------------- #
+
+
+def _load_skus() -> List[str]:
+    if not INPUT_FILE.exists():
+        sys.exit(f"Input file not found: {INPUT_FILE}")
+    skus = [
+        l.strip()
+        for l in INPUT_FILE.read_text(encoding="utf-8").splitlines()
+        if l.strip()
+    ]
+    if not skus:
+        sys.exit("No SKUs in input file.")
+    return skus
+
+
+def _write_csv(res: Dict[str, List[str]]) -> None:
+    with OUTPUT_FILE.open("w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["sku"] + [f"link{i+1}" for i in range(MAX_LINKS_PER_SKU)])
+        for sku, links in res.items():
+            w.writerow([sku] + links)
+    print(f"📄 CSV saved → {OUTPUT_FILE.absolute()}")
+
+
+# --------------------------------------------------------------------------- #
+# MAIN                                                                        #
+# --------------------------------------------------------------------------- #
 
 
 def main() -> None:
-    skus = [
-        s.strip()
-        for s in pathlib.Path("files/skus.txt").read_text().splitlines()
-        if s.strip()
-    ]
-    total = len(skus)
-
-    print(f"🔍 Starting search for {total} SKUs across {len(ALLOWED_DOMAINS)} domains")
+    skus = _load_skus()
     print(
-        f"📋 STRICT_SKU_MATCH={STRICT_SKU_MATCH}, MAX_LINKS_PER_SKU={MAX_LINKS_PER_SKU}"
+        f"🔍 {len(skus):,} SKU(s) × {len(ALLOWED_DOMAINS)} domain(s) = {len(skus)*len(ALLOWED_DOMAINS):,} requests …"
     )
-    print("─" * 60)
-
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as out:
-        for idx, sku in enumerate(skus, 1):
-            print(f"[{idx}/{total}] {sku}", end=" … ")
-            links = find_links_for(sku)
-            if links:
-                for link in links:
-                    out.write(f"{sku}\t{link}\n")
-                print(f"✓ {len(links)} link(s)")
-            else:
-                out.write(f"{sku}\tNOT_FOUND\n")
-                print("❌ No results")
-
-    print("─" * 60)
-    print(f"✅ Done. Results → {OUTPUT_FILE}")
-    driver.quit()
+    res = asyncio.run(_gather_all(skus))
+    _write_csv(res)
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        driver.quit()
-        print("\nInterrupted by user.")
+    main()
