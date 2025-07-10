@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """
-sku_search_async.py (dual‑progress edition)
-==========================================
+sku_search_async.py (robust-match edition)
+=========================================
 
-▶ **Two live progress bars**
+* Fixes **0-link issue** by pulling the *real* target URL out of DuckDuckGo’s
+  bounce links (`/l/?uddg=…`).
+* Adds a desktop-style **User-Agent header** (DuckDuckGo sometimes serves a
+  pared-down page with no results otherwise).
+* Makes SKU matching tolerant of hyphens and other non-word chars (keeps strict
+  match but without the word-boundary pitfalls).
+* Keeps dual progress bars and per-SKU summaries.
 
-* **Domain requests** (top bar): ticks every time *any* site query finishes –
-  you immediately see the script working even with thousands of SKUs.
-* **SKUs completed** (bottom bar): advances once a whole SKU (all its domain
-  searches) is done.
-
-Run with:
+Run:
 
     $ python sku_search_async.py
 
@@ -64,10 +65,21 @@ ALLOWED_DOMAINS: List[str] = [
 SEARCH_URL: str = "https://duckduckgo.com/lite?q={query}"
 TITLE_SELECTOR: str = "a.result-link"
 
-TIMEOUT_SECS: int = 10  # per‑request timeout
+TIMEOUT_SECS: int = 10  # per-request timeout
 CONCURRENT_QUERIES: int = 50  # global parallel requests
 MAX_LINKS_PER_SKU: int = 2  # stop after this many matches per SKU
-FUZZY_MATCH: bool = False  # True → substring match; False → word‑boundaries
+# If True, simple substring match.  If False, use a stricter regex that still
+# tolerates symbols like hyphens (no word-boundary pitfalls).
+FUZZY_MATCH: bool = False
+
+# Send a normal desktop UA so DuckDuckGo gives us full result markup
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/126.0.0.0 Safari/537.36"
+    )
+}
 
 # --------------------------------------------------------------------------- #
 # GLOBAL PROGRESS BAR (updated from every task)                               #
@@ -86,6 +98,23 @@ async def _fetch(session: httpx.AsyncClient, url: str) -> str | None:
         return r.text
     except (httpx.HTTPError, httpx.TimeoutException):
         return None
+
+
+def _extract_target_href(raw_href: str) -> str | None:
+    """Return the true external URL from DuckDuckGo’s lite bounce link.
+
+    * Raw external links start with ``http`` – return them as-is.
+    * Bounce links look like ``/l/?uddg=<urlencoded>`` – pull and decode
+      the ``uddg`` parameter.
+    """
+    if raw_href.startswith("http"):
+        return raw_href
+    if raw_href.startswith("/l/"):
+        qs = urllib.parse.parse_qs(urllib.parse.urlparse(raw_href).query)
+        encoded = qs.get("uddg", [None])[0]
+        if encoded:
+            return urllib.parse.unquote(encoded)
+    return None
 
 
 async def _search_domain(
@@ -107,18 +136,15 @@ async def _search_domain(
     if html:
         soup = BeautifulSoup(html, "html.parser")
         for a in soup.select(TITLE_SELECTOR):
-            href = a.get("href", "")
-            if (
-                href.startswith("http")
-                and domain in href
-                and regex.search(href.lower())
-            ):
-                link = href
+            target = _extract_target_href(a.get("href", ""))
+            if not target:
+                continue
+            if domain in target and regex.search(target.lower()):
+                link = target
                 print(f"[{sku}] ✓ {domain}")
                 break
-    # tick the domain‑level bar regardless of outcome
     if _domain_bar is not None:
-        _domain_bar.update(1)
+        _domain_bar.update(1)  # tick regardless of outcome
     return link
 
 
@@ -127,11 +153,13 @@ async def _links_for_sku(
     sem: asyncio.Semaphore,
     sku: str,
 ) -> List[str]:
-    regex = (
-        re.compile(re.escape(sku.lower()))
-        if FUZZY_MATCH
-        else re.compile(rf"\b{re.escape(sku.lower())}\b")
-    )
+    # Robust strict match: delimit by characters that are *not* letters/digits
+    # (\W but hyphen counts as delimiter too).
+    if FUZZY_MATCH:
+        regex = re.compile(re.escape(sku.lower()))
+    else:
+        regex = re.compile(rf"(?<![A-Za-z0-9]){re.escape(sku.lower())}(?![A-Za-z0-9])")
+
     tasks = [
         asyncio.create_task(_search_domain(session, sem, sku, d, regex))
         for d in ALLOWED_DOMAINS
@@ -150,19 +178,16 @@ async def _links_for_sku(
 
 
 async def _gather_all(skus: Iterable[str]) -> Dict[str, List[str]]:
-    """Gather links for every SKU while showing two progress bars."""
     global _domain_bar
-
-    total_domains = len(skus) * len(ALLOWED_DOMAINS)
-    _domain_bar = tqdm(total=total_domains, desc="Domain requests", unit="req")
+    total_reqs = len(skus) * len(ALLOWED_DOMAINS)
+    _domain_bar = tqdm(total=total_reqs, desc="Domain requests", unit="req")
 
     sem = asyncio.Semaphore(CONCURRENT_QUERIES)
     timeout = httpx.Timeout(TIMEOUT_SECS)
     async with httpx.AsyncClient(
-        follow_redirects=True, timeout=timeout, http2=True
+        headers=HEADERS, follow_redirects=True, timeout=timeout, http2=True
     ) as s:
         coros = [_links_for_sku(s, sem, sku) for sku in skus]
-        # bottom bar (SKUs completed)
         results = await tqdm_asyncio.gather(*coros, desc="SKUs done", unit="sku")
 
     _domain_bar.close()
