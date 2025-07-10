@@ -1,35 +1,40 @@
 #!/usr/bin/env python3
 """
-sku_search_limited.py – Search each SKU in **skus.txt** on a restricted list of
-domains and write at most **two** product‑page links per SKU.
+sku_search_sites.py – Search each SKU in ``skus.txt`` on a list of domains and
+write the first few matching product links.  This version drops Selenium in
+favour of ``requests`` + ``BeautifulSoup`` and processes multiple SKUs in
+parallel.
 
-Changes in v0.4 (2025‑07‑03)
-────────────────────────────
-* New constant **`MAX_LINKS_PER_SKU = 2`**
-* `find_links_for()` stops searching once that many links have been collected,
-  so we no longer gather a long tail of results.
-* Everything else – input file, output file, CLI flags – stays exactly the same.
+Changes in v0.5 (2025‑07‑03)
+───────────────────────────
+* **No Selenium** – search result pages are fetched with ``requests``.
+* **ThreadPoolExecutor** – several SKUs are searched concurrently.
+* **Query cache** – repeated ``(sku, domain)`` searches reuse previous results.
 """
 
 from __future__ import annotations
 
-import pathlib, sys, time, re
+import pathlib
+import sys
+import re
 from urllib.parse import urlparse
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+import concurrent.futures
+import threading
+import requests
+from bs4 import BeautifulSoup
 
 # ─── Configuration ────────────────────────────────────────────────────────────
-CHROMEDRIVER = "chromedriver"  # executable name or full path
-TIMEOUT = 10  # seconds per search/page load
+TIMEOUT = 10  # seconds per request
 SEARCH_URL = "https://duckduckgo.com/?q={query}&ia=web"
 TITLE_SEL = "a[data-testid='result-title-a'], a.result__a"
-HEADLESS = True  # flip to False to see browser
 STRICT_SKU_MATCH = True  # enforce exact SKU boundaries in URL
-MAX_LINKS_PER_SKU = 4  # ← new: stop after N links per SKU
+MAX_LINKS_PER_SKU = 4  # stop after N links per SKU
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/122.0 Safari/537.36"
+    )
+}
 
 ALLOWED_DOMAINS = [
     "solesense.com",
@@ -61,53 +66,60 @@ def normalize(domain: str) -> str:
 
 ALLOWED_NORMALIZED = {normalize(d) for d in ALLOWED_DOMAINS}
 
-# ─── Selenium bootstrap ───────────────────────────────────────────────────────
-opts = webdriver.ChromeOptions()
-if HEADLESS:
-    opts.add_argument("--headless=new")
-    opts.add_experimental_option("excludeSwitches", ["enable-automation"])
-try:
-    service = Service(executable_path="chromedriver.exe")
-    driver = webdriver.Chrome(service=service)
-except Exception as e:
-    sys.exit(f"❌ Could not start Chrome: {e}")
-
-wait = WebDriverWait(driver, TIMEOUT)
+# ─── Query cache ─────────────────────────────────────────────────────────────
+_cache: dict[tuple[str, str], str | None] = {}
+_cache_lock = threading.Lock()
 
 # ─── Search helper ────────────────────────────────────────────────────────────
 
 
-def find_links_for(sku: str) -> list[str]:
-    """Return up to *MAX_LINKS_PER_SKU* product links for *sku*."""
-    collected: dict[str, str] = {}
-    sku_lower = sku.lower()
-    sku_regex = re.compile(rf"\b{re.escape(sku_lower)}\b") if STRICT_SKU_MATCH else None
+def _search_domain(sku: str, domain: str, sku_regex: re.Pattern | None) -> str | None:
+    """Return the first matching link for ``(sku, domain)`` or ``None``."""
+    key = (sku, domain)
+    with _cache_lock:
+        if key in _cache:
+            return _cache[key]
 
-    for domain in ALLOWED_DOMAINS:
-        if len(collected) >= MAX_LINKS_PER_SKU:
-            break  # we already have enough links ➜ stop searching
-
-        query = f"site:{domain} {sku}"
-        driver.get(SEARCH_URL.format(query=query))
-        try:
-            wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, TITLE_SEL)))
-        except TimeoutException:
-            continue
-
-        for a in driver.find_elements(By.CSS_SELECTOR, TITLE_SEL):
-            href = a.get_attribute("href") or ""
+    query = f"site:{domain} {sku}"
+    url = SEARCH_URL.format(query=query)
+    try:
+        resp = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
+        resp.raise_for_status()
+    except Exception:
+        link = None
+    else:
+        soup = BeautifulSoup(resp.text, "html.parser")
+        link = None
+        for a in soup.select(TITLE_SEL):
+            href = a.get("href", "")
             if not href.startswith("http"):
                 continue
             if normalize(urlparse(href).netloc) != normalize(domain):
                 continue
             if sku_regex and not sku_regex.search(href.lower()):
                 continue
-            collected[normalize(domain)] = href
-            break  # one link per domain is enough
+            link = href
+            break
 
-        time.sleep(0.2)  # politeness delay
+    with _cache_lock:
+        _cache[key] = link
+    return link
 
-    return list(collected.values())
+
+def find_links_for(sku: str) -> list[str]:
+    """Return up to ``MAX_LINKS_PER_SKU`` product links for ``sku``."""
+    collected: list[str] = []
+    sku_lower = sku.lower()
+    sku_regex = re.compile(rf"\b{re.escape(sku_lower)}\b") if STRICT_SKU_MATCH else None
+
+    for domain in ALLOWED_DOMAINS:
+        if len(collected) >= MAX_LINKS_PER_SKU:
+            break
+        link = _search_domain(sku, domain, sku_regex)
+        if link:
+            collected.append(link)
+
+    return collected
 
 
 # ─── Driver code ──────────────────────────────────────────────────────────────
@@ -127,10 +139,9 @@ def main() -> None:
     )
     print("─" * 60)
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as out:
-        for idx, sku in enumerate(skus, 1):
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as out, concurrent.futures.ThreadPoolExecutor() as ex:
+        for idx, (sku, links) in enumerate(ex.map(lambda s: (s, find_links_for(s)), skus), 1):
             print(f"[{idx}/{total}] {sku}", end=" … ")
-            links = find_links_for(sku)
             if links:
                 for link in links:
                     out.write(f"{sku}\t{link}\n")
@@ -141,12 +152,10 @@ def main() -> None:
 
     print("─" * 60)
     print(f"✅ Done. Results → {OUTPUT_FILE}")
-    driver.quit()
 
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        driver.quit()
         print("\nInterrupted by user.")
