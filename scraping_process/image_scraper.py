@@ -27,6 +27,7 @@ import os
 import sys
 import csv
 import re
+import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -77,8 +78,10 @@ def looks_like_product(src: str) -> bool:
     return bool(IMG_EXT_RE.search(src))
 
 
-def extract_name_and_hero(driver: webdriver.Chrome, url: str) -> tuple[str, str]:
-    """Return (name, hero_image_url). Hero is the first valid picture we trust."""
+def extract_name_and_hero(driver: webdriver.Chrome, url: str) -> tuple[str, str, float]:
+    """Return (name, hero_image_url, fetch_time). Hero is the first valid picture we trust."""
+    start_time = time.time()
+
     driver.get(url)
     soup = BeautifulSoup(driver.page_source, "html.parser")
 
@@ -90,7 +93,8 @@ def extract_name_and_hero(driver: webdriver.Chrome, url: str) -> tuple[str, str]
     # 1️⃣  OpenGraph image wins
     hero = extract_meta(soup, "og:image")
     if hero:
-        return name, hero
+        fetch_time = time.time() - start_time
+        return name, hero, fetch_time
 
     # 2️⃣  Fallback: first good‑looking <img>
     for img in driver.find_elements("tag name", "img"):
@@ -103,9 +107,11 @@ def extract_name_and_hero(driver: webdriver.Chrome, url: str) -> tuple[str, str]
         except Exception:
             w = h = 0
         if w >= MIN_DIM and h >= MIN_DIM:
-            return name, src
+            fetch_time = time.time() - start_time
+            return name, src, fetch_time
 
-    return name, ""  # nothing decent found
+    fetch_time = time.time() - start_time
+    return name, "", fetch_time  # nothing decent found
 
 
 # ─── Main driver ───────────────────────────────────────────────────────────
@@ -131,12 +137,16 @@ def main():
         wr.writerow(["SKU", "Name", "Image_URL"])
 
         for sku, url in rows:
-            print(f"• {sku} → {url}")
+            print(f"• {sku} → {url}", end=" … ")
             try:
-                name, img = extract_name_and_hero(driver, url)
+                name, img, fetch_time = extract_name_and_hero(driver, url)
+                if img:
+                    print(f"✓ Found image ({fetch_time:.2f}s)")
+                else:
+                    print(f"❌ No image ({fetch_time:.2f}s)")
             except Exception as e:
-                print(f"  ⚠️  failed: {e}")
-                name, img = "", ""
+                print(f"⚠️  Failed: {e}")
+                name, img, fetch_time = "", "", 0.0
             wr.writerow([sku, name, img])
 
     driver.quit()
