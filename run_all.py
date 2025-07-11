@@ -9,7 +9,10 @@ import sys
 
 
 def main():
-    print("Running SKU search...")
+    print("Running SKU filter...")
+    result0 = subprocess.run([sys.executable, "file_handler/filter_skus.py"])
+
+    print("\nRunning SKU search...")
     result1 = subprocess.run([sys.executable, "scraping_process/sku_search_sites.py"])
 
     print("\nRunning image scraper...")

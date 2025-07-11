@@ -26,7 +26,7 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 # ─── Configuration ────────────────────────────────────────────────────────────
 CHROMEDRIVER = "chromedriver"  # change if the executable name differs
-TIMEOUT = 15  # seconds allowed per SKU
+TIMEOUT = 5  # seconds allowed per SKU
 SEARCH_URL = "https://duckduckgo.com/?q={query}&ia=web"
 TITLE_SEL = "a[data-testid='result-title-a'], a.result__a"
 HEADLESS = True  # flip to False if you want to see the UI
@@ -99,11 +99,11 @@ def links_for(sku: str) -> list[str]:
 def main() -> None:
     skus = [
         s.strip()
-        for s in pathlib.Path("skus.txt").read_text().splitlines()
+        for s in pathlib.Path("files/skus.txt").read_text().splitlines()
         if s.strip()
     ]
 
-    with open("sku_links.txt", "w", encoding="utf-8") as out:
+    with open("files/sku_links.txt", "w", encoding="utf-8") as out:
         for sku in skus:
             try:
                 matches = links_for(sku)

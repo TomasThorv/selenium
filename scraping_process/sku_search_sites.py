@@ -24,30 +24,31 @@ from selenium.common.exceptions import TimeoutException
 
 # ─── Configuration ────────────────────────────────────────────────────────────
 CHROMEDRIVER = "chromedriver"  # executable name or full path
-TIMEOUT = 10  # seconds per search/page load
+TIMEOUT = 2  # seconds per search/page load
 SEARCH_URL = "https://duckduckgo.com/?q={query}&ia=web"
 TITLE_SEL = "a[data-testid='result-title-a'], a.result__a"
 HEADLESS = True  # flip to False to see browser
 STRICT_SKU_MATCH = True  # enforce exact SKU boundaries in URL
-MAX_LINKS_PER_SKU = 4  # ← new: stop after N links per SKU
+MAX_LINKS_PER_SKU = 3  # ← new: stop after N links per SKU
 
 ALLOWED_DOMAINS = [
-    "solesense.com",
     "nike.com",
-    "foot-store.com",
-    "nike.ae",
-    "soccervillage.com",
+    "puma.com",
+    "adidas.com",
     "footy.com",
+    "solesense.com",
+    "foot-store.com",
+    "kickscrew.com",
+    "soccervillage.com",
     "goat.com",
     "soccerpost.com",
-    "kickscrew.com",
     "sportano.com",
-    "puma.com",
     "soccerandrugby.com",
     "adsport.store",
     "mybrand.shoes",
     "u90soccer.com",
     "yoursportsperformance.com",
+    "authenticsoccer.com",
 ]
 
 OUTPUT_FILE = "files/sku_links_limited.txt"
@@ -77,9 +78,10 @@ wait = WebDriverWait(driver, TIMEOUT)
 # ─── Search helper ────────────────────────────────────────────────────────────
 
 
-def find_links_for(sku: str) -> list[str]:
-    """Return up to *MAX_LINKS_PER_SKU* product links for *sku*."""
+def find_links_for(sku: str) -> tuple[list[str], list[tuple[str, float]]]:
+    """Return up to *MAX_LINKS_PER_SKU* product links for *sku* and timing info."""
     collected: dict[str, str] = {}
+    timings: list[tuple[str, float]] = []
     sku_lower = sku.lower()
     sku_regex = re.compile(rf"\b{re.escape(sku_lower)}\b") if STRICT_SKU_MATCH else None
 
@@ -87,6 +89,7 @@ def find_links_for(sku: str) -> list[str]:
         if len(collected) >= MAX_LINKS_PER_SKU:
             break  # we already have enough links ➜ stop searching
 
+        domain_start = time.time()
         query = f"site:{domain} {sku}"
         driver.get(SEARCH_URL.format(query=query))
         try:
@@ -94,6 +97,7 @@ def find_links_for(sku: str) -> list[str]:
         except TimeoutException:
             continue
 
+        found_link = False
         for a in driver.find_elements(By.CSS_SELECTOR, TITLE_SEL):
             href = a.get_attribute("href") or ""
             if not href.startswith("http"):
@@ -103,11 +107,16 @@ def find_links_for(sku: str) -> list[str]:
             if sku_regex and not sku_regex.search(href.lower()):
                 continue
             collected[normalize(domain)] = href
+            found_link = True
             break  # one link per domain is enough
+
+        if found_link:
+            domain_time = time.time() - domain_start
+            timings.append((domain, domain_time))
 
         time.sleep(0.2)  # politeness delay
 
-    return list(collected.values())
+    return list(collected.values()), timings
 
 
 # ─── Driver code ──────────────────────────────────────────────────────────────
@@ -130,11 +139,17 @@ def main() -> None:
     with open(OUTPUT_FILE, "w", encoding="utf-8") as out:
         for idx, sku in enumerate(skus, 1):
             print(f"[{idx}/{total}] {sku}", end=" … ")
-            links = find_links_for(sku)
+            links, timings = find_links_for(sku)
             if links:
                 for link in links:
                     out.write(f"{sku}\t{link}\n")
-                print(f"✓ {len(links)} link(s)")
+                timing_info = ""
+                if timings:
+                    timing_strs = [
+                        f"{domain}: {time_taken:.2f}s" for domain, time_taken in timings
+                    ]
+                    timing_info = f" ({', '.join(timing_strs)})"
+                print(f"✓ {len(links)} link(s){timing_info}")
             else:
                 out.write(f"{sku}\tNOT_FOUND\n")
                 print("❌ No results")
